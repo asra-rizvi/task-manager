@@ -37,3 +37,9 @@ A full-stack task manager where you can add, complete, and delete tasks. Data is
    Then run `node server.js`
 3. In `frontend/`, run `npm install` and then `npm run dev`
 4. Open http://localhost:5173
+
+## Live demo
+
+https://your-frontend-url.onrender.com
+
+Note: the backend runs on a free tier that sleeps after 15 minutes of inactivity, so the first load can take up to a minute.
