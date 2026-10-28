@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 function App() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/tasks')
+    axios.get(`${API_URL}/api/tasks`)
       .then((res) => setTasks(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -15,16 +18,17 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:5000/api/tasks', { title })
+    axios.post(`${API_URL}/api/tasks`, { title, description })
       .then((res) => {
         setTasks((prevTasks) => [res.data, ...prevTasks]);
         setTitle('');
+        setDescription('');
       })
       .catch((err) => console.error(err));
   };
 
   const handleToggle = (id, completed) => {
-    axios.put(`http://localhost:5000/api/tasks/${id}`, { completed: !completed })
+    axios.put(`${API_URL}/api/tasks/${id}`, { completed: !completed })
       .then((res) => {
         setTasks((prevTasks) =>
           prevTasks.map((task) => (task._id === id ? res.data : task))
@@ -34,7 +38,7 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/api/tasks/${id}`)
+    axios.delete(`${API_URL}/api/tasks/${id}`)
       .then(() => {
         setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
       })
@@ -52,6 +56,13 @@ function App() {
             placeholder="Task title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            className="task-input"
+          />
+          <input
+            type="text"
+            placeholder="Description (optional)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             className="task-input"
           />
           <button type="submit" className="add-button">Add Task</button>
