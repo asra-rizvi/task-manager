@@ -40,6 +40,6 @@ A full-stack task manager where you can add, complete, and delete tasks. Data is
 
 ## Live demo
 
-https://your-frontend-url.onrender.com
+https://task-manager-f-687k.onrender.com/
 
 Note: the backend runs on a free tier that sleeps after 15 minutes of inactivity, so the first load can take up to a minute.
